@@ -1,0 +1,2 @@
+page[:showpage].replace_html :partial => "show"
+page[:showpage].show
