@@ -12,20 +12,13 @@
 <%= @exc.exception_class %> in <%= @exc.controller_name.camelcase %>/<%= @exc.action_name %>
 </h1>
 
-<p class="intro">
-<%= @exc.message %>
-</p>
+<h2>Request</h2>
 
-
-<ul class="tabs">
-	<li class="selected"><a href="">Backtrace</a></li>
-	<li><a href="">Environment</a></li>
-	<li><a href="">Request</a></li>
-</ul>
-
-<br style="clear:left;" />
+<%= textilize(@exc.request) %>
 
 <h2>Backtrace</h2>
+
+<%= content_tag 'p', @exc.message, :class => 'intro' %>
 
 <div id="backtrace">
 <%=h(@exc.backtrace).gsub(/\n/,"<br />") %>
@@ -34,7 +27,3 @@
 <h2>Environment</h2>
 
 <%= textilize(@exc.environment) %>
-
-<h2>Request</h2>
-
-<%= textilize(@exc.request) %>
