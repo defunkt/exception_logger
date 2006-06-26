@@ -290,3 +290,14 @@ ul.tabs li.selected a
 	color:white;
 }
 
+#activity {
+  position:fixed;
+  top:0; right:18px;
+  width:200px;
+  padding:5px 0;
+  text-align:center;
+  background-color:#cf1313;
+  color:#fff;
+  opacity:.8;
+  font-size: 11px;
+}
