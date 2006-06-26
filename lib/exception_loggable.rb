@@ -49,7 +49,6 @@ module ExceptionLoggable
   end
 
   def local_request?
-    return false
     remote = IPAddr.new(request.remote_ip)
     !self.class.local_addresses.detect { |addr| addr.include?(remote) }.nil?
   end
