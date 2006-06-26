@@ -18,6 +18,10 @@ ExceptionLogger = {
       var value = $(filterName) ? $F(filterName) : null;
       a.className = (value && (a.getAttribute('title') == value || a.innerHTML == value)) ? 'selected' : '';
     });
+  },
+  
+  deleteAll: function() {
+    return $$('tr.exception').collect(function(tr) { return tr.getAttribute('id').gsub(/^\w+-/, ''); }).toQueryString('ids');
   }
 }
 
@@ -25,6 +29,12 @@ Event.observe(window, 'load', function() {
   ExceptionLogger.filters.each(function(context) {
     $(context + '_filter').value = '';
   });
+});
+
+Object.extend(Array.prototype, {
+  toQueryString: function(name) {
+    return this.collect(function(item) { return name + "[]=" + encodeURIComponent(item) }).join('&');
+  }
 });
 
 Ajax.Responders.register({

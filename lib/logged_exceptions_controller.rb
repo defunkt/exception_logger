@@ -38,4 +38,9 @@ class LoggedExceptionsController < ActionController::Base
   def destroy
     LoggedException.destroy params[:id]
   end
+  
+  def destroy_all
+    LoggedException.delete_all ['id in (?)', params[:ids]] unless params[:ids].blank?
+    query
+  end
 end

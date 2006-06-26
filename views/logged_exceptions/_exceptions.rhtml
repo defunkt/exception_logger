@@ -1,10 +1,11 @@
 <div id="exceptions">
 
-<% if @exception_pages.page_count>1 %>
 <div class="pages">
-Pages: <strong><%= pagination_remote_links @exception_pages, :params => { :action => :index } %></strong>
-</div>
+  <%= link_to_remote 'Delete Visible', :url => { :action => 'destroy_all' }, :with => "ExceptionLogger.deleteAll()" %>
+<% if @exception_pages.page_count > 1 %>
+:: Pages: <strong><%= pagination_remote_links @exception_pages, :params => { :action => :index } %></strong>
 <% end %>
+</div>
 
 <h1>Exceptions <%= "<span>(filtered)</span>" if filtered? %> </h1>
 
@@ -24,7 +25,7 @@ Pages: <strong><%= pagination_remote_links @exception_pages, :params => { :actio
 
   <tbody>
   <% exceptions.each do |exc| -%>
-    <tr id="exception-<%= exc.id %>" class="<%= cycle("eor", "") %>">
+    <tr id="exception-<%= exc.id %>" class="<%= cycle("eor", "") %> exception">
       <td>
 <div class="expclass">
 
@@ -37,7 +38,7 @@ Pages: <strong><%= pagination_remote_links @exception_pages, :params => { :actio
 
 -->
 <% 
-if Date.today==exc.created_at.to_date 
+if Date.today == exc.created_at.to_date 
 	if exc.created_at > Time.now - 4.hours
 	%>
 		<%= time_ago_in_words(exc.created_at).gsub(/about /,"~ ") %> ago
