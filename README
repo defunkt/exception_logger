@@ -7,4 +7,38 @@ First you need to generate the migration:
 
   ./script/generate exception_migration
 
+Next, you'll need to include the ExceptionLoggable module into ApplicationController.  Once that's done you might want to modify key methods to customize the logging:
+
+  render_404(exception) - Shows the 404 template.
+  
+  render_500(exception) - Shows the 500 template.
+  
+  log_exception(exception) - Logs the actual exception in the database.
+  
+  rescue_action_in_public(exception) - Does not log these exceptions: ActiveRecord::RecordNotFound, ActionController::UnknownController, ActionController::UnknownAction
+
 After that, visit /logged_exceptions in your application to manage the exceptions.
+
+It's understandable that you may want to require authentication.  Add this to your config/environments/production.rb:
+
+  # config/environments/production.rb
+  config.after_initialize do
+    require 'application' unless Object.const_defined?(:ApplicationController)
+    LoggedExceptionsController.class_eval do
+      before_filter :login_required
+      protected
+        # only allow admins
+        # this obviously depends on how your auth system works
+        def authorized?
+          current_user.is_a?(Admin)
+        end
+    end
+  end
+
+The exact code of course depends on the specific needs of your application.
+
+CREDITS
+
+Jamis Buck  - original exception_notification plugin
+Rick Olson  - model/controller code
+Josh Goebel - design

@@ -1,5 +1,4 @@
 class LoggedExceptionsController < ActionController::Base
-  self.template_root = File.join(RAILS_ROOT, 'vendor/plugins/exception_logger/views')
   layout nil
 
   def index

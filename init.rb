@@ -1,1 +1,1 @@
-# Include hook code here
+LoggedExceptionsController.template_root = File.join(directory, 'views')
