@@ -301,3 +301,7 @@ ul.tabs li.selected a
   opacity:.8;
   font-size: 11px;
 }
+
+#feed {
+  margin-top: 15px;
+}

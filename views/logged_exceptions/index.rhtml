@@ -19,6 +19,10 @@
 
 <h3>Filters</h3>
 
+<ul id="all_exceptions" class="filters">
+  <li><%= link_to 'Latest Exceptions', :action => 'index', :id => nil %></li>
+</ul>
+
 <h4>Exception</h4>
 
 <ul id="exception_names" class="filters">
@@ -60,6 +64,7 @@
   </form>
 </div>
 
+<%= render :partial => 'feed' %>
 
 </div> <!-- right -->
 
