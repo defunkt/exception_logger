@@ -17,6 +17,10 @@ class LoggedException < ActiveRecord::Base
     def find_exception_controllers_and_actions
       find(:all, :select => "DISTINCT controller_name, action_name", :order => "controller_name, action_name").collect(&:controller_action)
     end
+    
+    def host_name
+      `hostname -s`.chomp
+    end
   end
 
   def backtrace=(backtrace)
@@ -36,7 +40,7 @@ class LoggedException < ActiveRecord::Base
       env = request.env.keys.sort.inject [] do |env, key|
         env << '* ' + ("%*-s: %s" % [max.length, key, request.env[key].to_s.strip])
       end
-      write_attribute(:environment, (env << "* Process: #{$$}" << "* Server : #{`hostname -s`.chomp}") * "\n")
+      write_attribute(:environment, (env << "* Process: #{$$}" << "* Server : #{self.class.host_name}") * "\n")
       
       write_attribute(:request, [
         "* URL: #{request.protocol}#{request.env["HTTP_HOST"]}#{request.request_uri}",
