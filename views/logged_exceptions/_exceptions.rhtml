@@ -1,5 +1,4 @@
 <div id="exceptions">
-<%= session[:user_id] ; controller.reset_session %>
 <div class="pages">
   <%= link_to_remote 'Delete Visible', :url => { :action => 'destroy_all' }, :with => "ExceptionLogger.deleteAll()" %>
 <% if @exception_pages.page_count > 1 %>
