@@ -81,9 +81,9 @@ module ExceptionLoggable
   def log_exception(exception)
     deliverer = self.class.exception_data
     data = case deliverer
-      when nil then {}
+      when nil    then {}
       when Symbol then send(deliverer)
-      when Proc then deliverer.call(self)
+      when Proc   then deliverer.call(self)
     end
 
     LoggedException.create_from_exception(self, exception)
