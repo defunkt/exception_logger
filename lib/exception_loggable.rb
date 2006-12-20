@@ -53,29 +53,10 @@ module ExceptionLoggable
     !self.class.local_addresses.detect { |addr| addr.include?(remote) }.nil?
   end
 
-  def render_404(exception)
-    respond_to do |format|
-      format.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => 400 }
-      format.all  { head :status => 404 }
-    end
-  end
-
-  def render_500(exception)
-    respond_to do |format|
-      format.html { render :file => "#{RAILS_ROOT}/public/500.html", :status => 500 }
-      format.all  { head :status => 500 }
-    end
-  end
-
   def rescue_action_in_public(exception)
-    case exception
-      when ActiveRecord::RecordNotFound, ActionController::UnknownController, ActionController::UnknownAction
-        render_404(exception)
-
-      else          
-        render_500(exception)
-        log_exception(exception)
-    end
+    status = response_code_for_rescue(exception)
+    render_optional_error_file status
+    log_exception(exception) if status == :internal_server_error
   end
 
   def log_exception(exception)
