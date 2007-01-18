@@ -39,7 +39,8 @@ module ExceptionLoggable
       addresses
     end
 
-    def exception_data(deliverer=self)
+    def exception_data(deliverer = self, &block)
+      deliverer = block if block
       if deliverer == self
         read_inheritable_attribute(:exception_data)
       else
@@ -56,7 +57,7 @@ module ExceptionLoggable
   def rescue_action_in_public(exception)
     status = response_code_for_rescue(exception)
     render_optional_error_file status
-    log_exception(exception) if status == :internal_server_error
+    log_exception(exception) if status != :not_found
   end
 
   def log_exception(exception)
@@ -67,6 +68,6 @@ module ExceptionLoggable
       when Proc   then deliverer.call(self)
     end
 
-    LoggedException.create_from_exception(self, exception)
+    LoggedException.create_from_exception(self, exception, data)
   end
 end

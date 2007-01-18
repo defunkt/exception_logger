@@ -18,7 +18,7 @@
 
 <h2>Backtrace</h2>
 
-<%= content_tag 'p', @exc.message, :class => 'intro' %>
+<%= simple_format @exc.message %>
 
 <div id="backtrace">
 <%=h(@exc.backtrace).gsub(/\n/,"<br />") %>

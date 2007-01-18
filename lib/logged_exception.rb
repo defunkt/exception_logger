@@ -1,11 +1,13 @@
 class LoggedException < ActiveRecord::Base
   class << self
-    def create_from_exception(controller, exception)
+    def create_from_exception(controller, exception, data)
+      message = exception.message.inspect
+      message << "\n* Extra Data\n\n#{data}" unless data.blank?
       create! \
         :exception_class => exception.class.name,
         :controller_name => controller.controller_name,
         :action_name     => controller.action_name,
-        :message         => exception.message.inspect,
+        :message         => message,
         :backtrace       => exception.backtrace,
         :request         => controller.request
     end
