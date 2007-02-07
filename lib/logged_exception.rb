@@ -41,7 +41,8 @@ class LoggedException < ActiveRecord::Base
       write_attribute(:environment, (env << "* Process: #{$$}" << "* Server : #{self.class.host_name}") * "\n")
       
       write_attribute(:request, [
-        "* URL: #{request.protocol}#{request.env["HTTP_HOST"]}#{request.request_uri}",
+        "* URL:#{" #{request.method.to_s.upcase}" unless request.get?} #{request.protocol}#{request.env["HTTP_HOST"]}#{request.request_uri}",
+        "* Format: #{request.format.to_s}",
         "* Parameters: #{request.parameters.inspect}",
         "* Rails Root: #{rails_root}"
       ] * "\n")
