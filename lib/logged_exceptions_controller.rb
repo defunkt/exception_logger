@@ -36,7 +36,7 @@ class LoggedExceptionsController < ActionController::Base
     
     respond_to do |format|
       format.html { redirect_to :action => 'index' unless action_name == 'index' }
-      format.js
+      format.js   { render :action => 'query.rjs'  }
       format.rss  { render :action => 'query.rxml' }
     end
   end
