@@ -36,7 +36,7 @@ class LoggedException < ActiveRecord::Base
     else
       max = request.env.keys.max { |a,b| a.length <=> b.length }
       env = request.env.keys.sort.inject [] do |env, key|
-        env << '* ' + ("%*-s: %s" % [max.length, key, request.env[key].to_s.strip])
+        env << '* ' + ("%-*s: %s" % [max.length, key, request.env[key].to_s.strip])
       end
       write_attribute(:environment, (env << "* Process: #{$$}" << "* Server : #{self.class.host_name}") * "\n")
       
