@@ -17,6 +17,10 @@ Next, you'll need to include the ExceptionLoggable module into ApplicationContro
   
   rescue_action_in_public(exception) - Does not log these exceptions: ActiveRecord::RecordNotFound, ActionController::UnknownController, ActionController::UnknownAction
 
+Now add a new route to your routes.rb:
+
+  map.resources :logged_exceptions
+
 After that, visit /logged_exceptions in your application to manage the exceptions.
 
 It's understandable that you may want to require authentication.  Add this to your config/environments/production.rb:
