@@ -59,7 +59,7 @@
       <%= hidden_field_tag :exception_names_filter %>
 			<%= hidden_field_tag :date_ranges_filter %>
 			<%= hidden_field_tag :controller_actions_filter %>
-      <%= hidden_field_tag :page, params[:page] %>
+      <%= hidden_field_tag :page, (params[:page] || 1) %>
     </div>
   </form>
 </div>
