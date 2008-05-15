@@ -23,6 +23,11 @@ Now add a new route to your routes.rb:
 
 After that, visit /logged_exceptions in your application to manage the exceptions.
 
+Once you have done that, open up the vendor/plugins/init.rb file and choose your pagination,
+supported options are will_paginate, paginating_find, and simple mysql based pagination (Uses LIMIT)
+The current default is none. To use the other options you need to uncomment the $PAGINATION_TYPE line
+and the require for that pagination, you should comment out what you won't use etc...
+
 It's understandable that you may want to require authentication.  Add this to your config/environments/production.rb:
 
   # config/environments/production.rb
@@ -72,3 +77,4 @@ CREDITS
 Jamis Buck  - original exception_notification plugin
 Rick Olson  - model/controller code
 Josh Goebel - design
+Jason Knight - Pagination support, built on/inspired by Ryanb's willpaginate support.
