@@ -1,9 +1,7 @@
 <div id="exceptions">
 <div class="pages">
   <%= link_to_remote 'Delete Visible', :url => { :action => 'destroy_all' }, :with => "ExceptionLogger.deleteAll()" %>
-<% if @exceptions.total_pages > 1 %>
-:: Pages: <strong><%= pagination_remote_links @exceptions %></strong>
-<% end %>
+<%= pagination_remote_links @exceptions %>
 </div>
 
 <h1>Exceptions <%= "<span>(filtered)</span>" if filtered? %> </h1>
@@ -48,11 +46,10 @@ if Date.today == exc.created_at.to_date
 
 </table>
 
-<% if @exceptions.total_pages > 1 %>
 <div class="pages pages-bottom">
-Pages: <strong><%= pagination_remote_links @exceptions %></strong>
+<%= pagination_remote_links @exceptions %>
 </div>
-<% end %>
+
 
 
 </div> <!-- #exceptions -->
