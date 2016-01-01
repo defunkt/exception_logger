@@ -1,13 +1,13 @@
 ExceptionLogger
 ===============
 
-The Exception Logger (forgive the horrible name) logs your Rails exceptions in the database and provides a funky web interface to manage them.
+The **Exception Logger** (forgive the horrible name) logs your Rails exceptions in the database and provides a funky web interface to manage them.
 
 First you need to generate the migration:
 ```
   ./script/generate exception_migration
 ```
-Next, you'll need to include the ExceptionLoggable module into ApplicationController.  Once that's done you might want to modify key methods to customize the logging:
+Next, you'll need to include the `ExceptionLoggable` module into `ApplicationController`.  Once that's done you might want to modify key methods to customize the logging:
 ```
   render_404(exception) - Shows the 404 template.
   
@@ -30,7 +30,7 @@ The current default is none. To use the other options you need to uncomment the 
 and the require for that pagination, you should comment out what you won't use etc...
 
 It's understandable that you may want to require authentication.  Add this to your `config/environments/production.rb`:
-  ```ruby
+```ruby
   # config/environments/production.rb
   config.after_initialize do
     require 'application' unless Object.const_defined?(:ApplicationController)
@@ -70,12 +70,13 @@ It's understandable that you may want to require authentication.  Add this to yo
         alias_method_chain :login_required, :basic
     end
   end
-  ```ruby
+
+```
 
 The exact code of course depends on the specific needs of your application.
----
+
 CREDITS
----
+===
 Jamis Buck  - original exception_notification plugin
 Rick Olson  - model/controller code
 Josh Goebel - design
