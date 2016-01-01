@@ -77,7 +77,7 @@ The exact code of course depends on the specific needs of your application.
 
 CREDITS
 ===
-Jamis Buck  - original exception_notification plugin
-Rick Olson  - model/controller code
-Josh Goebel - design
-Jason Knight - Pagination support, built on/inspired by Ryanb's willpaginate support.
+Jamis Buck  - original exception_notification plugin  
+Rick Olson  - model/controller code  
+Josh Goebel - design  
+Jason Knight - Pagination support, built on/inspired by Ryanb's willpaginate support.  
