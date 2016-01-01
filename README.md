@@ -1,14 +1,14 @@
 ExceptionLogger
 ===============
 
-The Exception Logger (forgive the horrible name) logs your Rails exceptions in the database and provides a funky web interface to manage them.
+The **Exception Logger** (forgive the horrible name) logs your Rails exceptions in the database and provides a funky web interface to manage them.
 
 First you need to generate the migration:
-
+```
   ./script/generate exception_migration
-
-Next, you'll need to include the ExceptionLoggable module into ApplicationController.  Once that's done you might want to modify key methods to customize the logging:
-
+```
+Next, you'll need to include the `ExceptionLoggable` module into `ApplicationController`.  Once that's done you might want to modify key methods to customize the logging:
+```
   render_404(exception) - Shows the 404 template.
   
   render_500(exception) - Shows the 500 template.
@@ -17,19 +17,20 @@ Next, you'll need to include the ExceptionLoggable module into ApplicationContro
   
   rescue_action_in_public(exception) - Does not log these exceptions: ActiveRecord::RecordNotFound, ActionController::UnknownController, ActionController::UnknownAction
 
+``` 
 Now add a new route to your routes.rb:
-
+```ruby
   map.connect "logged_exceptions/:action/:id", :controller => "logged_exceptions"
+```
+After that, visit `/logged_exceptions` in your application to manage the exceptions.
 
-After that, visit /logged_exceptions in your application to manage the exceptions.
-
-Once you have done that, open up the vendor/plugins/init.rb file and choose your pagination,
-supported options are will_paginate, paginating_find, and simple mysql based pagination (Uses LIMIT)
-The current default is none. To use the other options you need to uncomment the $PAGINATION_TYPE line
+Once you have done that, open up the `vendor/plugins/init.rb` file and choose your pagination,
+supported options are `will_paginate`, `paginating_find`, and simple `mysql` based pagination (Uses `LIMIT`)
+The current default is none. To use the other options you need to uncomment the `$PAGINATION_TYPE` line
 and the require for that pagination, you should comment out what you won't use etc...
 
-It's understandable that you may want to require authentication.  Add this to your config/environments/production.rb:
-
+It's understandable that you may want to require authentication.  Add this to your `config/environments/production.rb`:
+```ruby
   # config/environments/production.rb
   config.after_initialize do
     require 'application' unless Object.const_defined?(:ApplicationController)
@@ -70,11 +71,13 @@ It's understandable that you may want to require authentication.  Add this to yo
     end
   end
 
+```
+
 The exact code of course depends on the specific needs of your application.
 
 CREDITS
-
-Jamis Buck  - original exception_notification plugin
-Rick Olson  - model/controller code
-Josh Goebel - design
-Jason Knight - Pagination support, built on/inspired by Ryanb's willpaginate support.
+===
+Jamis Buck  - original exception_notification plugin  
+Rick Olson  - model/controller code  
+Josh Goebel - design  
+Jason Knight - Pagination support, built on/inspired by Ryanb's willpaginate support.  
